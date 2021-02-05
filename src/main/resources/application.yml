@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/authority_demo?serverTimezone=Asia/Shanghai
+    username: "root"
+    password: "0601"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis-plus:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: io.oicp.yorick61c.domain
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    io.oicp.yorick.mapper: debug
