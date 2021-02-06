@@ -8,4 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper extends BaseMapper<User> {
 
     User login(User user);
+
+    User findUserByUsername(String username);
 }

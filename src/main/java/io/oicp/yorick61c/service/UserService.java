@@ -5,4 +5,6 @@ import io.oicp.yorick61c.domain.User;
 public interface UserService {
 
     User login(User user);
+
+    User findUserByUsername(String username);
 }

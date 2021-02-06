@@ -23,5 +23,11 @@
         </where>
     </select>
 
+    <select id="findUserByUsername" parameterType="string" resultType="user">
+        select <include refid="UserColumn"/>
+        from user
+        where username = #{username}
+    </select>
+
 
 </mapper>
