@@ -4,6 +4,7 @@ import io.oicp.yorick61c.controller.UserController;
 import io.oicp.yorick61c.domain.User;
 import io.oicp.yorick61c.mapper.UserMapper;
 import io.oicp.yorick61c.service.UserService;
+import io.oicp.yorick61c.utils.JsonUtil;
 import io.oicp.yorick61c.utils.JwtUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,15 @@ class Yorick61cApplicationTests {
         user.setPassword("111111");
         String token = JwtUtil.generateToken(userService.login(user).getUsername());
         System.out.println(token);
-        System.out.println(JwtUtil.parse(token));
+        System.out.println(JwtUtil.parse(token).getSubject());
+    }
+
+    @Test
+    void testJsonUtil() {
+        User user = new User();
+        user.setUsername("admin");
+        user.setPassword("111111");
+        System.out.println(JsonUtil.obj2String(user));
     }
 
 }
