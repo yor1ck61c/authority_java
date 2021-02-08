@@ -20,11 +20,12 @@ public class LoginInterceptor implements HandlerInterceptor {
             return true;
         }
 
+        //字符串名称与前端的config.Headers['Authorization'] = getToken()保持一致
         Claims claims = JwtUtil.parse(request.getHeader("Authorization"));
 
         //登录过就存储用户名并放行
         if (claims != null) {
-            // 将我们之前放到token中的userName给存到上下文对象中
+            // 将我们之前放到token中的username给存到上下文对象中
             UserContext.add(claims.getSubject());
             return true;
         }

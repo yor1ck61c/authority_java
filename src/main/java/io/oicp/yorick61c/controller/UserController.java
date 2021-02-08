@@ -16,22 +16,34 @@ import javax.annotation.Resource;
 import java.util.Set;
 
 @RestController
+/*
+* @RestController注解相当于@ResponseBody ＋ @Controller合在一起的作用
+* 该注释声明这个是Controller类，类中的方法返回的都是字符串
+*/
 @RequestMapping("/user")
 public class UserController {
 
     @Resource(name = "UserService")
     private UserService userService;
 
+    /*
+    * @RequestMapping(method = RequestMethod.POST)的快捷方式
+    * */
     @PostMapping("/login")
     public String login(@RequestBody User user){
         User userByUsername = userService.findUserByUsername(user.getUsername());
         if (userByUsername == null) {
             //用户不存在
-            return null;
+            Token returnToken = new Token();
+            returnToken.setCode(300);
+            returnToken.setMsg("用户不存在");
+            return JsonUtil.obj2String(returnToken);
         } else {
             if (!userByUsername.getPassword().equals(user.getPassword())){
                 //密码不正确
-                return null;
+                Token returnToken = new Token();
+                returnToken.setMsg("密码不存在");
+                return JsonUtil.obj2String(returnToken);
             }
             //登录认证成功，生成JwtToken并返回。
             String token = JwtUtil.generateToken(user.getUsername());

@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class Token {
-    private String token;
     private Integer code;
+    private String token;
+    private String msg;
 }
