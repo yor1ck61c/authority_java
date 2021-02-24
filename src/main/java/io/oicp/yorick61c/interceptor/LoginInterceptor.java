@@ -5,7 +5,6 @@ import io.oicp.yorick61c.utils.JwtUtil;
 import io.oicp.yorick61c.utils.UserContext;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,6 +28,8 @@ public class LoginInterceptor implements HandlerInterceptor {
             UserContext.add(claims.getSubject());
             return true;
         }
+
+        System.out.println("该请求已被拦截");
 
         return false;
     }

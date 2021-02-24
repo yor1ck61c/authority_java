@@ -36,13 +36,13 @@ public class UserController {
             //用户不存在
             Token returnToken = new Token();
             returnToken.setCode(300);
-            returnToken.setMsg("用户不存在");
+            returnToken.setMsg("该用户不存在");
             return JsonUtil.obj2String(returnToken);
         } else {
             if (!userByUsername.getPassword().equals(user.getPassword())){
                 //密码不正确
                 Token returnToken = new Token();
-                returnToken.setMsg("密码不存在");
+                returnToken.setMsg("密码错误");
                 return JsonUtil.obj2String(returnToken);
             }
             //登录认证成功，生成JwtToken并返回。
@@ -56,6 +56,7 @@ public class UserController {
 
     @PostMapping("/getInfo")
     @ResponseBody
+    // @RequestHeader注解主要是将请求头的信息区数据，映射到功能处理方法的参数上。@CookieValue注解主要是将请求的Cookie数据，映射到功能处理方法的参数上。
     public String getUserInfo(@CookieValue("Token") String token) throws JsonProcessingException {
         //根据token获取user对象全部信息
         User user = userService.findUserByUsername(JwtUtil.parse(token).getSubject());
@@ -66,6 +67,8 @@ public class UserController {
     @PostMapping("/logout")
     @ResponseBody
     public String logout(){
+
+        System.out.println("success");
         return "success";
     }
 }
