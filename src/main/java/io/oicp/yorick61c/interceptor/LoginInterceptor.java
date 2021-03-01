@@ -30,7 +30,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
 
         System.out.println("该请求已被拦截");
-
         return false;
     }
 
@@ -40,6 +39,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     }
 
     @Override
+
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         //请求结束后删除信息，否则可能造成内存泄漏
         UserContext.remove();
