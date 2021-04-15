@@ -26,6 +26,7 @@ public class PrivilegeController {
     @PostMapping("/save")
     // @RequestBody用来接收前端传递给后端的json字符串中的数据的(请求体中的数据
     public void saveAccount(@RequestBody User user) {
+
         //System.out.println(user.getRole());
         privilegeService.save(user);
     }

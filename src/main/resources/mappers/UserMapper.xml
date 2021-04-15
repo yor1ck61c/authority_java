@@ -29,5 +29,21 @@
         where username = #{username}
     </select>
 
+    <select id="findUser" parameterType="user" resultType="user">
+        select <include refid="UserColumn"></include>
+        from user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="username != null">
+                and username = #{username}
+            </if>
+            <if test="password != null">
+                and password = #{password}
+            </if>
+        </where>
+    </select>
+
 
 </mapper>

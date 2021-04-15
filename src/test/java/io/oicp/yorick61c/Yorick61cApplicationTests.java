@@ -55,4 +55,16 @@ class Yorick61cApplicationTests {
         System.out.println(JsonUtil.obj2String(user));
     }
 
+    @Test
+    void testFindUser() {
+        User user = new User();
+        user.setUsername("admin");
+        System.out.println(userMapper.findUser(user));
+    }
+
+    @Test
+    void testResidentServiceImpl() {
+
+    }
+
 }
