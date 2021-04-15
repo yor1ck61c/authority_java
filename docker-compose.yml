@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  backend:
+    image: authority_java
+    container_name: authority_java
+    build: .
+    ports:
+      - 8080:8080
