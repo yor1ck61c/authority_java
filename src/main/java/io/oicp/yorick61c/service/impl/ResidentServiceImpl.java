@@ -39,4 +39,9 @@ public class ResidentServiceImpl implements ResidentService {
     public List<CBasicFileTableDto> getResidentBasicFileTableInfo() {
         return residentBasicFileMapper.selectList(null);
     }
+
+    @Override
+    public void deleteResidentInfoById(Integer id) {
+        residentBuildFileMapper.deleteById(id);
+    }
 }

@@ -10,4 +10,6 @@ public interface ResidentService {
     int insertResidentInfo(CResidentBuildFileDto residentBuildFileDto);
 
     List<CBasicFileTableDto> getResidentBasicFileTableInfo();
+
+    void deleteResidentInfoById(Integer id);
 }

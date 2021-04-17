@@ -28,5 +28,14 @@ public class ResidentController {
         return JsonUtil.obj2String(residentService.getResidentBasicFileTableInfo());
     }
 
+    @PostMapping("/deleteInfo")
+    public void deleteResidentInfo(@RequestBody Integer userId) {
+        if (userId != null) {
+            residentService.deleteResidentInfoById(userId);
+        } else {
+            System.out.println("id is null!");
+        }
+    }
+
 
 }
