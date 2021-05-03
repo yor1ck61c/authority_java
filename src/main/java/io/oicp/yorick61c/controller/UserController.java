@@ -8,11 +8,13 @@ import io.oicp.yorick61c.domain.User;
 import io.oicp.yorick61c.service.UserService;
 import io.oicp.yorick61c.utils.JsonUtil;
 import io.oicp.yorick61c.utils.JwtUtil;
+import io.oicp.yorick61c.utils.UserContext;
 import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.Set;
 
 @RestController
@@ -30,7 +32,7 @@ public class UserController {
     * @RequestMapping(method = RequestMethod.POST)的快捷方式
     * */
     @PostMapping("/login")
-    public String login(@RequestBody User user){
+    public String login(@RequestBody User user, HttpSession session){
         User userByUsername = userService.findUserByUsername(user.getUsername());
         if (userByUsername == null) {
             //用户不存在
@@ -47,6 +49,7 @@ public class UserController {
             }
             //登录认证成功，生成JwtToken并返回。
             String token = JwtUtil.generateToken(user.getUsername());
+            session.setAttribute("username", user.getUsername());
             Token returnToken = new Token();
             returnToken.setToken(token);
             returnToken.setCode(200);
@@ -57,7 +60,7 @@ public class UserController {
     @PostMapping("/getInfo")
     @ResponseBody
     // @RequestHeader注解主要是将请求头的信息区数据，映射到功能处理方法的参数上。@CookieValue注解主要是将请求的Cookie数据，映射到功能处理方法的参数上。
-    public String getUserInfo(@CookieValue("Token") String token) throws JsonProcessingException {
+    public String getUserInfo(@CookieValue("Token") String token) {
         //根据token获取user对象全部信息
         User user = userService.findUserByUsername(JwtUtil.parse(token).getSubject());
         //将对象信息转为json字符串返回
@@ -68,7 +71,7 @@ public class UserController {
     @ResponseBody
     public String logout(){
 
-        System.out.println("success");
+        System.out.println("successLogOut");
         return "success";
     }
 }

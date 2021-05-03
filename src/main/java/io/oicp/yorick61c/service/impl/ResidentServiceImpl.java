@@ -11,6 +11,7 @@ import io.oicp.yorick61c.utils.UserContext;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -28,12 +29,15 @@ public class ResidentServiceImpl implements ResidentService {
 
 
     @Override
-    public int insertResidentInfo(CResidentBuildFileDto residentBuildFileDto) {
+    public void insertResidentInfo(CResidentBuildFileDto residentBuildFileDto) {
         User user = userMapper.findUserByUsername(UserContext.getCurrentUserName());
-        residentBuildFileDto.setUserId(user.getId());
-        residentBuildFileDto.setBuildFileResident(residentBuildFileDto.getResidentName());
-        residentBuildFileDto.setBuildFileTime(new Date());
-        return residentBuildFileMapper.insert(residentBuildFileDto);
+
+        residentBuildFileDto.setUserId(user.getId()); //设置用户id
+        residentBuildFileDto.setBuildFileResident(residentBuildFileDto.getResidentName()); //设置建档人
+
+        SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss" );
+        residentBuildFileDto.setBuildFileTime(sdf.format(new Date()));
+        residentBuildFileMapper.insert(residentBuildFileDto);
     }
 
     public List<CBasicFileTableDto> getResidentBasicFileTableInfo() {

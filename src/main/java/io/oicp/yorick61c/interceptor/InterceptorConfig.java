@@ -11,10 +11,14 @@ public class InterceptorConfig implements WebMvcConfigurer {
     @Autowired
     private PrivilegeInterceptor privilegeInterceptor;
 
+    @Autowired
+    private LoginInterceptor loginInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
         registry.addInterceptor(privilegeInterceptor).addPathPatterns("/privilege/**");
+        registry.addInterceptor(loginInterceptor).excludePathPatterns("/dialog");
+
     }
 }

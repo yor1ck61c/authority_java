@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+
+        String requestURI = request.getRequestURI();
 
         //登录请求直接放行
-        if ("/user/login".equals(request.getRequestURI())) {
+        if ("/user/login".equals(requestURI)) {
             return true;
         }
 
@@ -35,13 +37,13 @@ public class LoginInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
 
     }
 
     @Override
 
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         //请求结束后删除信息，否则可能造成内存泄漏
         UserContext.remove();
     }

@@ -28,7 +28,7 @@ public class ResidentInfo {
     private String eduLevel; //受教育情况
     private String profession;
     private String payment; //支付方式
-    private Date buildFileTime; //建档时间
+    private String buildFileTime; //建档时间
     private String buildFileInstitute; //建档机构
     private String buildFileResident; //建档人
     private String reportCycle; //报告周期

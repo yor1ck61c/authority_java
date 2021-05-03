@@ -33,6 +33,6 @@ public class CResidentBuildFileDto {
     private String profession;
     private String payment; //支付方式
     private String buildFileResident; //建档人
-    private Date buildFileTime; //建档时间
+    private String buildFileTime; //建档时间
 
 }

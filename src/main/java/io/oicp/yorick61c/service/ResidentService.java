@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ResidentService {
 
-    int insertResidentInfo(CResidentBuildFileDto residentBuildFileDto);
+    void insertResidentInfo(CResidentBuildFileDto residentBuildFileDto);
 
     List<CBasicFileTableDto> getResidentBasicFileTableInfo();
 

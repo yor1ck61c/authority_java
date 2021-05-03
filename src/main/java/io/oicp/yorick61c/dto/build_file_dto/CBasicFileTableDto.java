@@ -19,7 +19,7 @@ public class CBasicFileTableDto {
     private String residentPhoneNum;
     private String firmedDisease; //确诊疾病
     private String buildFileResident; //建档人
-    private Date buildFileTime; //建档时间
+    private String buildFileTime; //建档时间
     private String buildFileInstitute; //建档机构
 
 }

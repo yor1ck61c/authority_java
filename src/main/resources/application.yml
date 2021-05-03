@@ -6,7 +6,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/authority_demo?serverTimezone=Asia/Shanghai
     username: "root"
-    password: "CG51hahaha!"
+    password: "0601"
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis-plus:
