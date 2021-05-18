@@ -1,6 +1,6 @@
 package io.oicp.yorick61c.utils;
 
-import io.oicp.yorick61c.domain.ResultMessageVO;
+import io.oicp.yorick61c.pojo.vo.websocket.ResultMessageVO;
 
 public class MessageUtils {
 

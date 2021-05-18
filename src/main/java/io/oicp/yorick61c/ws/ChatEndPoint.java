@@ -1,7 +1,7 @@
 package io.oicp.yorick61c.ws;
 
 
-import io.oicp.yorick61c.domain.MsgDTO;
+import io.oicp.yorick61c.pojo.vo.websocket.MsgDTO;
 import io.oicp.yorick61c.mapper.UserMapper;
 import io.oicp.yorick61c.utils.JsonUtil;
 import io.oicp.yorick61c.utils.MessageUtils;
@@ -108,6 +108,7 @@ public class ChatEndPoint {
         String offLineMsg = MessageUtils.getMsg(true, null, getNames(), null);
         broadcastAllUsers(offLineMsg);
     }
+
 }
 
 

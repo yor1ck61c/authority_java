@@ -1,6 +1,6 @@
 package io.oicp.yorick61c.controller;
 
-import io.oicp.yorick61c.dto.build_file_dto.CResidentBuildFileDto;
+import io.oicp.yorick61c.pojo.dto.build_file_dto.CResidentBuildFileDto;
 import io.oicp.yorick61c.service.ResidentService;
 import io.oicp.yorick61c.utils.JsonUtil;
 import org.springframework.stereotype.Controller;

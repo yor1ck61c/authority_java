@@ -1,4 +1,4 @@
-package io.oicp.yorick61c.domain;
+package io.oicp.yorick61c.pojo.vo.websocket;
 
 
 /*

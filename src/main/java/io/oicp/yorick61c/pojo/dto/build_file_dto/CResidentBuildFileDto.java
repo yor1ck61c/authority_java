@@ -1,4 +1,4 @@
-package io.oicp.yorick61c.dto.build_file_dto;
+package io.oicp.yorick61c.pojo.dto.build_file_dto;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
