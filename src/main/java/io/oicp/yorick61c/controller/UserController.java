@@ -1,21 +1,14 @@
 package io.oicp.yorick61c.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.Claims;
-import io.oicp.yorick61c.domain.Token;
-import io.oicp.yorick61c.domain.User;
+import io.oicp.yorick61c.domain.login.Token;
+import io.oicp.yorick61c.domain.login.User;
 import io.oicp.yorick61c.service.UserService;
 import io.oicp.yorick61c.utils.JsonUtil;
 import io.oicp.yorick61c.utils.JwtUtil;
-import io.oicp.yorick61c.utils.UserContext;
-import jdk.nashorn.internal.parser.JSONParser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.Set;
 
 @RestController
 /*

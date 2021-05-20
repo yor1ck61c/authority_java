@@ -1,6 +1,6 @@
 package io.oicp.yorick61c.service.impl;
 
-import io.oicp.yorick61c.domain.User;
+import io.oicp.yorick61c.domain.login.User;
 import io.oicp.yorick61c.pojo.dto.build_file_dto.CBasicFileTableDto;
 import io.oicp.yorick61c.pojo.dto.build_file_dto.CResidentBuildFileDto;
 import io.oicp.yorick61c.mapper.ResidentBasicFileMapper;

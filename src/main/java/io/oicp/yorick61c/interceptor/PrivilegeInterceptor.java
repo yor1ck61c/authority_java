@@ -1,6 +1,6 @@
 package io.oicp.yorick61c.interceptor;
 
-import io.oicp.yorick61c.domain.User;
+import io.oicp.yorick61c.domain.login.User;
 import io.oicp.yorick61c.mapper.UserMapper;
 import io.oicp.yorick61c.utils.UserContext;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class PrivilegeInterceptor implements HandlerInterceptor {
     private UserMapper userMapper;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         User userByUsername = userMapper.findUserByUsername(UserContext.getCurrentUserName());
         if (!userByUsername.getRole().equals("admin")){
             System.out.println("拦截成功");
@@ -28,12 +28,12 @@ public class PrivilegeInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
 
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 
     }
 }

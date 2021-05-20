@@ -1,6 +1,6 @@
 package io.oicp.yorick61c.service;
 
-import io.oicp.yorick61c.domain.User;
+import io.oicp.yorick61c.domain.login.User;
 
 public interface UserService {
 

@@ -1,6 +1,6 @@
 package io.oicp.yorick61c.service.impl;
 
-import io.oicp.yorick61c.domain.User;
+import io.oicp.yorick61c.domain.login.User;
 import io.oicp.yorick61c.mapper.UserMapper;
 import io.oicp.yorick61c.service.UserService;
 import org.springframework.stereotype.Service;

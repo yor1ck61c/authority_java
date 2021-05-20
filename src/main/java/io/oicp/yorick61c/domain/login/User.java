@@ -1,4 +1,4 @@
-package io.oicp.yorick61c.domain;
+package io.oicp.yorick61c.domain.login;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

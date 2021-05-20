@@ -1,7 +1,7 @@
 package io.oicp.yorick61c.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import io.oicp.yorick61c.domain.User;
+import io.oicp.yorick61c.domain.login.User;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

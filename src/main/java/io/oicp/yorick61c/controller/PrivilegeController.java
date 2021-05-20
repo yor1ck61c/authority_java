@@ -1,6 +1,6 @@
 package io.oicp.yorick61c.controller;
 
-import io.oicp.yorick61c.domain.User;
+import io.oicp.yorick61c.domain.login.User;
 import io.oicp.yorick61c.service.PrivilegeService;
 import io.oicp.yorick61c.utils.JsonUtil;
 import org.springframework.web.bind.annotation.*;

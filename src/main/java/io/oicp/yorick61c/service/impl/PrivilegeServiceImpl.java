@@ -1,7 +1,7 @@
 package io.oicp.yorick61c.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import io.oicp.yorick61c.domain.User;
+import io.oicp.yorick61c.domain.login.User;
 import io.oicp.yorick61c.mapper.UserMapper;
 import io.oicp.yorick61c.service.PrivilegeService;
 import org.springframework.stereotype.Service;

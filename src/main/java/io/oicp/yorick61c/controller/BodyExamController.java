@@ -1,18 +1,17 @@
 package io.oicp.yorick61c.controller;
 
 
-import io.oicp.yorick61c.domain.DataItem;
+import io.oicp.yorick61c.domain.body_exam.DataItem;
 import io.oicp.yorick61c.domain.MsgBox;
+import io.oicp.yorick61c.pojo.dto.body_exam_dto.CItemNameDto;
 import io.oicp.yorick61c.service.BodyExamService;
 import io.oicp.yorick61c.utils.JsonUtil;
-import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/exam")
@@ -34,6 +33,12 @@ public class BodyExamController {
             msg.setMsg("保存成功");
         }
         return JsonUtil.obj2String(msg);
+    }
 
+    @GetMapping("/get_item_names")
+    @ResponseBody
+    public String getItemNameList() {
+        List<DataItem> nameList = bodyExamService.getItemNameList();
+        return JsonUtil.obj2String(nameList);
     }
 }
