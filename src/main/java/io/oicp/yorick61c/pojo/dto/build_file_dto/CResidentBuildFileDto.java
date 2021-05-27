@@ -12,6 +12,7 @@ public class CResidentBuildFileDto {
 
     @TableId
     private Integer userId;
+    private String username;
     private String residentName;
     private String fileNum; //档案编号
     private String residentId; //身份证号

@@ -23,8 +23,8 @@ public class PrivilegeServiceImpl implements PrivilegeService{
     }
 
     @Override
-    public void save(User user) {
-        userMapper.insert(user);
+    public int save(User user) {
+        return userMapper.insert(user);
     }
 
     @Override

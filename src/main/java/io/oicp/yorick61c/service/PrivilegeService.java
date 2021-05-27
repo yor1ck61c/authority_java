@@ -8,7 +8,7 @@ public interface PrivilegeService {
 
     List<User> getAccountInfo();
 
-    void save(User user);
+    int save(User user);
 
     void delete(Integer id);
 

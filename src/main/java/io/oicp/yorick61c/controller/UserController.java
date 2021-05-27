@@ -1,7 +1,9 @@
 package io.oicp.yorick61c.controller;
 
+import io.oicp.yorick61c.domain.MsgBox;
 import io.oicp.yorick61c.domain.login.Token;
 import io.oicp.yorick61c.domain.login.User;
+import io.oicp.yorick61c.service.PrivilegeService;
 import io.oicp.yorick61c.service.UserService;
 import io.oicp.yorick61c.utils.JsonUtil;
 import io.oicp.yorick61c.utils.JwtUtil;
@@ -20,6 +22,9 @@ public class UserController {
 
     @Resource(name = "UserService")
     private UserService userService;
+
+    @Resource(name = "PrivilegeService")
+    private PrivilegeService privilegeService;
 
     /*
     * @RequestMapping(method = RequestMethod.POST)的快捷方式
@@ -66,5 +71,24 @@ public class UserController {
 
         System.out.println("successLogOut");
         return "success";
+    }
+
+    @PostMapping("/register")
+    @ResponseBody
+    public String register(@RequestBody User user) {
+        user.setRole("user");
+        user.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+        user.setIntroduction("这个人很懒，什么也没有留下。");
+        int saveStatus = privilegeService.save(user);
+        MsgBox msgBox = new MsgBox();
+        if (saveStatus == 1) {
+            msgBox.setCode(1);
+            msgBox.setMsg("注册成功！");
+        } else {
+            msgBox.setCode(0);
+            msgBox.setMsg("注册失败！");
+        }
+        return JsonUtil.obj2String(msgBox);
+
     }
 }

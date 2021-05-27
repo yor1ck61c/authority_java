@@ -1,5 +1,6 @@
 package io.oicp.yorick61c.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.oicp.yorick61c.domain.login.User;
 import io.oicp.yorick61c.pojo.dto.build_file_dto.CBasicFileTableDto;
 import io.oicp.yorick61c.pojo.dto.build_file_dto.CResidentBuildFileDto;
@@ -48,4 +49,11 @@ public class ResidentServiceImpl implements ResidentService {
     public void deleteResidentInfoById(Integer id) {
         residentBuildFileMapper.deleteById(id);
     }
+
+    @Override
+    public List<CBasicFileTableDto> getResidentNames() {
+        return residentBasicFileMapper.selectList(new QueryWrapper<CBasicFileTableDto>().select("user_id", "resident_name"));
+    }
+
+
 }

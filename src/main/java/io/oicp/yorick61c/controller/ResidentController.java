@@ -37,5 +37,11 @@ public class ResidentController {
         }
     }
 
+    @GetMapping("get_resident_names")
+    @ResponseBody
+    public String getResidentNames(){
+        return JsonUtil.obj2String(residentService.getResidentNames());
+    }
+
 
 }

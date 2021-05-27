@@ -12,4 +12,6 @@ public interface ResidentService {
     List<CBasicFileTableDto> getResidentBasicFileTableInfo();
 
     void deleteResidentInfoById(Integer id);
+
+    List<CBasicFileTableDto> getResidentNames();
 }

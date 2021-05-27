@@ -10,7 +10,6 @@ import java.util.Date;
 public class ResidentInfo {
 
     private Integer userId;
-    private String residentName;
     private String fileNum; //档案编号
     private String residentId; //身份证号
     private String residentGender;

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.oicp.yorick61c.mapper.body_exam.ExamItemMapper">
+
+    <sql id="examInfo">exam_id,exam_type,exam_equipment,description</sql>
+
+    <insert id="insertExamInfo" parameterType="examItem" useGeneratedKeys="true" keyProperty="examId">
+        insert into exam_item
+            (exam_type, exam_name, exam_equipment, description)
+        values
+            (#{examType}, #{examName}, #{examEquipment}, #{description})
+    </insert>
+
+    <insert id="insertMappingInfo" parameterType="int">
+        insert into exam_item_data_item_mapping
+            (exam_id, item_id)
+        values
+            (#{examId}, #{itemId})
+    </insert>
+</mapper>

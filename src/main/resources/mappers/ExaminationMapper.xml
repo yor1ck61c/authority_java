@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.oicp.yorick61c.mapper.body_exam.ExaminationMapper">
+
+    <insert id="insertExamination" parameterType="examination" useGeneratedKeys="true" keyProperty="examinationId">
+        insert into examination
+            (resident_name, exam_time, doctor_name, has_examined)
+        values
+            (#{residentName}, #{examTime}, #{doctorName}, #{hasExamined})
+    </insert>
+
+    <insert id="insertMappingInfo" parameterType="int">
+        insert into examination_exam_item_mapping
+            (examination_id, exam_id)
+        values
+            (#{examinationId}, #{examId})
+    </insert>
+
+    <insert id="insertUEMappingInfo" parameterType="int">
+        insert into user_examination_mapping
+            (user_id, examination_id)
+        values
+            (#{userId}, #{examinationId})
+    </insert>
+
+    <select id="getExaminationIdListById" parameterType="int" resultType="long">
+        select
+            examination_id
+        from
+            user_examination_mapping
+        where
+            user_id = #{userId}
+    </select>
+</mapper>

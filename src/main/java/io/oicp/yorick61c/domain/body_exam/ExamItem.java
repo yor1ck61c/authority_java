@@ -7,16 +7,18 @@ import lombok.Data;
 
 import java.util.List;
 
+
 @Data
-@TableName("exam_info")
-public class ExamInfo {
+@TableName("exam_item")
+public class ExamItem {
 
     @TableId(type = IdType.AUTO)
     private Integer examId;
-    private String examName;
     private String examType;
+    private String examName;
     private String examEquipment;
-    private String examDescription;
-    private List<DataItem> examDataItems;
+    private String description;
+    private Integer[] examDataItemIds;
+    private List<ExamDataItem> examDataItems;
 
 }
