@@ -8,6 +8,6 @@ public class CExamResultDto {
     private Integer examinationId;
     private String residentName;
     private String examName;
-    private String examStatus;
+    private Boolean hasExamined;
     private String examTime;
 }

@@ -18,8 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -80,15 +79,31 @@ public class BodyExamServiceImpl implements BodyExamService {
     }
 
     @Override
+    @Transactional
     public List<CExamResultDto> getExamResultDtoList() {
         int userId = this.getUserId();
         long[] examinationIdList = examinationMapper.getExaminationIdListById(userId);
-        for (long i : examinationIdList) {
-            System.out.println(i);
+        List<CExamResultDto> resultDtoList = new ArrayList<>();
+        for (long examinationId : examinationIdList) {
+            String[] examNameList = examinationMapper.getExamNameListByExaminationId(examinationId);
+            Examination examination = examinationMapper.selectExamInfoById(examinationId);
+            for (String examName : examNameList) {
+                resultDtoList.add(generateExamResultDto(examName, examination));
+            }
         }
-
-        return null;
+        return resultDtoList;
     }
+
+    private CExamResultDto generateExamResultDto(String examName, Examination examination) {
+        CExamResultDto cExamResultDto = new CExamResultDto();
+        cExamResultDto.setExamName(examName);
+        cExamResultDto.setExamTime(examination.getExamTime());
+        cExamResultDto.setExaminationId(examination.getExaminationId());
+        cExamResultDto.setHasExamined(examination.getHasExamined());
+        cExamResultDto.setResidentName(examination.getResidentName());
+        return cExamResultDto;
+    }
+
 
     @Override
     public List<ExamItem> getExamItemNameList() {
@@ -102,14 +117,15 @@ public class BodyExamServiceImpl implements BodyExamService {
         return new String(chars).substring(0, 19);
     }
 
-    public int getUserId() {
+    private int getUserId() {
         String currentUserName = UserContext.getCurrentUserName();
         User userByUsername = userMapper.findUserByUsername(currentUserName);
         return userByUsername.getId();
     }
 
-    public int getUserId(String username) {
+    private int getUserId(String username) {
         CBasicFileTableDto residentInfo = residentBasicFileMapper.selectOne(new QueryWrapper<CBasicFileTableDto>().eq("resident_name", username));
         return residentInfo.getUserId();
     }
+
 }

@@ -12,4 +12,8 @@ public interface ExaminationMapper extends BaseMapper<Examination> {
     int insertUEMappingInfo(int userId, Integer examinationId);
 
     long[] getExaminationIdListById(int userId);
+
+    String[] getExamNameListByExaminationId(long examinationId);
+
+    Examination selectExamInfoById(long examinationId);
 }

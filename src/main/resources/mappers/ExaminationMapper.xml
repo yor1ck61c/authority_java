@@ -33,4 +33,20 @@
         where
             user_id = #{userId}
     </select>
+
+    <select id="getExamNameListByExaminationId" parameterType="long" resultType="string">
+        SELECT exam_name
+        FROM exam_item
+        WHERE exam_id = ANY(
+            SELECT exam_id
+            FROM examination_exam_item_mapping
+            WHERE examination_id = #{examinationId}
+        )
+    </select>
+
+    <select id="selectExamInfoById" parameterType="long" resultType="examination">
+        select examination_id, resident_name, exam_time, doctor_name, has_examined
+        from examination
+        where examination_id = #{examinationId}
+    </select>
 </mapper>
