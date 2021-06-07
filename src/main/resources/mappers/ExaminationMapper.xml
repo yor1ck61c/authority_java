@@ -6,16 +6,16 @@
 
     <insert id="insertExamination" parameterType="examination" useGeneratedKeys="true" keyProperty="examinationId">
         insert into examination
-            (resident_name, exam_time, doctor_name, has_examined)
+            (resident_name, exam_time, doctor_name, has_examined, user_id)
         values
-            (#{residentName}, #{examTime}, #{doctorName}, #{hasExamined})
+            (#{residentName}, #{examTime}, #{doctorName}, #{hasExamined}, #{userId})
     </insert>
 
     <insert id="insertMappingInfo" parameterType="int">
         insert into examination_exam_item_mapping
-            (examination_id, exam_id)
+            (examination_id, exam_id, has_value)
         values
-            (#{examinationId}, #{examId})
+            (#{examinationId}, #{examId}, 0)
     </insert>
 
     <insert id="insertUEMappingInfo" parameterType="int">
@@ -45,8 +45,14 @@
     </select>
 
     <select id="selectExamInfoById" parameterType="long" resultType="examination">
-        select examination_id, resident_name, exam_time, doctor_name, has_examined
+        select examination_id, resident_name, exam_time, doctor_name, has_examined, user_id
         from examination
         where examination_id = #{examinationId}
     </select>
+
+    <update id="setHandle" parameterType="int">
+        update examination
+        set has_examined = 1
+        where examination_id = #{examinationId}
+    </update>
 </mapper>

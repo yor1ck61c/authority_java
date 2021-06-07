@@ -13,6 +13,7 @@ public class Examination {
 
     @TableId(type = IdType.AUTO)
     private Integer examinationId;
+    private Integer userId;
     private String residentName;
     private String examTime;
     private String doctorName;

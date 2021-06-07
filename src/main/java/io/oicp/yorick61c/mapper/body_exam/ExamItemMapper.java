@@ -8,4 +8,6 @@ public interface ExamItemMapper extends BaseMapper<ExamItem> {
     int insertExamInfo(ExamItem info);
 
     int insertMappingInfo(int examId, int itemId);
+
+    String selectExamNameByExamId(int examId);
 }

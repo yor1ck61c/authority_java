@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.oicp.yorick61c.mapper.body_exam.ExamResultMapper">
+
+    <select id="selectIdValueList" parameterType="int" resultType="examResult">
+        select
+            item_id, item_value
+        from
+            exam_result
+        where
+            examination_id = #{examinationId}
+        and
+            exam_id = #{examId}
+
+    </select>
+</mapper>

@@ -18,7 +18,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         String requestURI = request.getRequestURI();
 
         //登录请求直接放行
-        if ("/user/login".equals(requestURI) || "/user/register".equals(requestURI)) {
+        if ("/user/login".equals(requestURI) || "/user/register".equals(requestURI) || "/user/get_username_list".equals(requestURI)) {
             return true;
         }
 

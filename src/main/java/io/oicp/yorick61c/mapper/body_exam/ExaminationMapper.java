@@ -16,4 +16,6 @@ public interface ExaminationMapper extends BaseMapper<Examination> {
     String[] getExamNameListByExaminationId(long examinationId);
 
     Examination selectExamInfoById(long examinationId);
+
+    void setHandle(Integer examinationId);
 }

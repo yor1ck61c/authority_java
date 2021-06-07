@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.oicp.yorick61c.mapper.body_exam.ExaminationExamMappingMapper">
+
+
+    <select id="selectUnDoExamIdByExaminationId" parameterType="int" resultType="long">
+        select
+            exam_id
+        from
+            examination_exam_item_mapping
+        where
+            examination_id = #{examinationId}
+        and
+            has_value = 0
+    </select>
+
+    <select id="selectExamIdByExaminationId" parameterType="int" resultType="long">
+        select
+            exam_id
+        from
+            examination_exam_item_mapping
+        where
+            examination_id = #{examinationId}
+    </select>
+
+    <select id="selectExamIdAndStatusByExaminationId" parameterType="int" resultType="examinationExamMapping">
+        select
+            examination_id, exam_id, has_value
+        from
+            examination_exam_item_mapping
+        where
+            examination_id = #{examinationId}
+    </select>
+
+    <delete id="deleteExamByExaminationIdAndExamId" parameterType="int">
+        delete from
+            examination_exam_item_mapping
+        where
+            examination_id = #{examinationId}
+        and
+            exam_id = #{examId}
+    </delete>
+
+    <select id="countExamItemsByExaminationId" parameterType="int" resultType="int">
+        select
+            count(*)
+        from
+            examination_exam_item_mapping
+        where
+            examination_id = #{examinationId}
+
+    </select>
+
+    <update id="setHandle" parameterType="int" >
+        update
+            examination_exam_item_mapping
+        set
+            has_value = 1
+        where
+            examination_id = #{examinationId}
+        and
+            exam_id = #{examId}
+    </update>
+
+</mapper>

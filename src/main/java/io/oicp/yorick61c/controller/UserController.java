@@ -73,6 +73,12 @@ public class UserController {
         return "success";
     }
 
+    @GetMapping("/get_username_list")
+    @ResponseBody
+    public String getUsernameList() {
+        return JsonUtil.obj2String(userService.getUsernameList());
+    }
+
     @PostMapping("/register")
     @ResponseBody
     public String register(@RequestBody User user) {

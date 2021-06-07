@@ -19,4 +19,11 @@
         values
             (#{examId}, #{itemId})
     </insert>
+
+    <select id="selectExamNameByExamId" parameterType="int" resultType="string">
+        select exam_name
+        from exam_item
+        where exam_id = #{examId}
+
+    </select>
 </mapper>

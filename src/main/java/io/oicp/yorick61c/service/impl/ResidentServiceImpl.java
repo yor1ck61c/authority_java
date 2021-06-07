@@ -8,6 +8,7 @@ import io.oicp.yorick61c.mapper.ResidentBasicFileMapper;
 import io.oicp.yorick61c.mapper.ResidentBuildFileMapper;
 import io.oicp.yorick61c.mapper.UserMapper;
 import io.oicp.yorick61c.service.ResidentService;
+import io.oicp.yorick61c.utils.TimeUtil;
 import io.oicp.yorick61c.utils.UserContext;
 import org.springframework.stereotype.Service;
 
@@ -35,9 +36,8 @@ public class ResidentServiceImpl implements ResidentService {
 
         residentBuildFileDto.setUserId(user.getId()); //设置用户id
         residentBuildFileDto.setBuildFileResident(residentBuildFileDto.getResidentName()); //设置建档人
+        residentBuildFileDto.setBuildFileTime(TimeUtil.getPresentFormatTimeString());
 
-        SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss" );
-        residentBuildFileDto.setBuildFileTime(sdf.format(new Date()));
         residentBuildFileMapper.insert(residentBuildFileDto);
     }
 
