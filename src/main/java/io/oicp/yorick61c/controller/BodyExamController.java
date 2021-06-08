@@ -4,6 +4,7 @@ package io.oicp.yorick61c.controller;
 import io.oicp.yorick61c.domain.body_exam.ExamDataItem;
 import io.oicp.yorick61c.domain.MsgBox;
 import io.oicp.yorick61c.domain.body_exam.ExamItem;
+import io.oicp.yorick61c.domain.body_exam.ExamResult;
 import io.oicp.yorick61c.domain.body_exam.Examination;
 import io.oicp.yorick61c.pojo.dto.body_exam_dto.CExamDataItemInfo;
 import io.oicp.yorick61c.pojo.dto.body_exam_dto.CExamDetailDto;
@@ -47,6 +48,16 @@ public class BodyExamController {
         }
         return getSaveMsgString(insertStatus);
     }
+
+    @PostMapping("/save_exam_result_data_from_excel")
+    @ResponseBody
+    public String saveExamResultDataFromExcel(@RequestBody List<ExamResult> examResults) {
+        int res = bodyExamService.saveExamResultFromExcel(examResults);
+
+        return getSaveMsgString(res);
+    }
+
+
 
     @PostMapping("/save_examination")
     @ResponseBody

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ExamResultMapper extends BaseMapper<ExamResult> {
     List<ExamResult> selectIdValueList(int examinationId, int examId);
+
+    int updateExamResult(ExamResult i);
 }

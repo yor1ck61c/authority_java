@@ -204,6 +204,16 @@ public class BodyExamServiceImpl implements BodyExamService {
         return res;
     }
 
+    @Override
+    @Transactional
+    public int saveExamResultFromExcel(List<ExamResult> examResults) {
+        int sum = 0;
+        for (ExamResult i: examResults) {
+            sum += examResultMapper.updateExamResult(i);
+        }
+        return sum == examResults.size() ? 1 : 0;
+    }
+
     private CExamDetailDto generateExamResultDto(Integer itemId, Double itemValue) {
         CExamDetailDto cExamDetailDto = new CExamDetailDto();
         ExamDataItem item = dataItemMapper.selectById(itemId);

@@ -15,4 +15,17 @@
             exam_id = #{examId}
 
     </select>
+
+    <update id="updateExamResult" parameterType="examResult">
+        update
+            exam_result
+        set
+            item_value = #{itemValue}
+        where
+            examination_id = #{examinationId}
+        and
+            exam_id = #{examId}
+        and
+            item_id = #{itemId}
+    </update>
 </mapper>
