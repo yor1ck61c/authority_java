@@ -5,17 +5,14 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-
 @Data
-@TableName("examination")
-public class Examination {
-
+@TableName("exam_order_cache")
+public class ExamOrder {
     @TableId(type = IdType.AUTO)
-    private Integer examinationId;
+    private Integer examOrderId;
+    private Integer examId;
     private Integer userId;
     private String residentName;
     private String examTime;
-    private String doctorName;
-    private Boolean hasExamined;
-    private Integer[] examItemIds;
+    private String examName;
 }

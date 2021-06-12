@@ -1,13 +1,7 @@
 package io.oicp.yorick61c.service;
 
-import io.oicp.yorick61c.domain.body_exam.ExamDataItem;
-import io.oicp.yorick61c.domain.body_exam.ExamItem;
-import io.oicp.yorick61c.domain.body_exam.ExamResult;
-import io.oicp.yorick61c.domain.body_exam.Examination;
-import io.oicp.yorick61c.pojo.dto.body_exam_dto.CExamDataItemInfo;
-import io.oicp.yorick61c.pojo.dto.body_exam_dto.CExamDetailDto;
-import io.oicp.yorick61c.pojo.dto.body_exam_dto.CExamResultDto;
-import io.oicp.yorick61c.pojo.dto.body_exam_dto.CHandleExamDto;
+import io.oicp.yorick61c.domain.body_exam.*;
+import io.oicp.yorick61c.pojo.dto.body_exam_dto.*;
 
 import java.util.List;
 
@@ -35,4 +29,12 @@ public interface BodyExamService {
     List<CExamDetailDto> getExamDetailList(int examinationId, int examId);
 
     int saveExamResultFromExcel(List<ExamResult> examResults);
+
+    int saveOrderList(CExamOrderDto dto);
+
+    List<ExamOrder> getExamOrderList();
+
+    int deleteExamOrderById(int examOrderId);
+
+    int saveExaminationFromOrder(CNewExamOrderDto info);
 }

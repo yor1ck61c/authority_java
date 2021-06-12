@@ -2,7 +2,9 @@ package io.oicp.yorick61c.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.oicp.yorick61c.domain.login.User;
+import io.oicp.yorick61c.mapper.ResidentBasicFileMapper;
 import io.oicp.yorick61c.mapper.UserMapper;
+import io.oicp.yorick61c.pojo.dto.build_file_dto.CBasicFileTableDto;
 import io.oicp.yorick61c.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ public class UserServiceImpl implements UserService {
 
     @Resource(description = "UserMapper")
     private UserMapper userMapper;
+
+    @Resource
+    ResidentBasicFileMapper residentBasicFileMapper;
 
     @Override
     public User login(User user) {
@@ -29,5 +34,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUsernameList() {
         return userMapper.selectList(new QueryWrapper<User>().select("username"));
+    }
+
+    @Override
+    public String getResidentNameByUsername(String username) {
+        User user = userMapper.findUserByUsername(username);
+        CBasicFileTableDto cBasicFileTableDto = residentBasicFileMapper.selectById(user.getId());
+        return cBasicFileTableDto.getResidentName();
     }
 }

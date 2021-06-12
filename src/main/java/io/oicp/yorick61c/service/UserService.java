@@ -11,4 +11,6 @@ public interface UserService {
     User findUserByUsername(String username);
 
     List<User> getUsernameList();
+
+    String getResidentNameByUsername(String username);
 }

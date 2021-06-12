@@ -95,6 +95,12 @@ public class UserController {
             msgBox.setMsg("注册失败！");
         }
         return JsonUtil.obj2String(msgBox);
+    }
 
+    @GetMapping("/get_resident_name_by_username")
+    @ResponseBody
+    public String getResidentNameByUsername(String username) {
+        String residentName = userService.getResidentNameByUsername(username);
+        return JsonUtil.obj2String(residentName);
     }
 }

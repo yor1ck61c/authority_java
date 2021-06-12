@@ -6,10 +6,7 @@ import io.oicp.yorick61c.domain.login.User;
 import io.oicp.yorick61c.mapper.ResidentBasicFileMapper;
 import io.oicp.yorick61c.mapper.UserMapper;
 import io.oicp.yorick61c.mapper.body_exam.*;
-import io.oicp.yorick61c.pojo.dto.body_exam_dto.CExamDataItemInfo;
-import io.oicp.yorick61c.pojo.dto.body_exam_dto.CExamDetailDto;
-import io.oicp.yorick61c.pojo.dto.body_exam_dto.CExamResultDto;
-import io.oicp.yorick61c.pojo.dto.body_exam_dto.CHandleExamDto;
+import io.oicp.yorick61c.pojo.dto.body_exam_dto.*;
 import io.oicp.yorick61c.pojo.dto.build_file_dto.CBasicFileTableDto;
 import io.oicp.yorick61c.service.BodyExamService;
 import io.oicp.yorick61c.utils.TimeUtil;
@@ -27,6 +24,9 @@ public class BodyExamServiceImpl implements BodyExamService {
 
     @Resource
     private ExamDataItemMapper dataItemMapper;
+
+    @Resource
+    private ExamOrderMapper examOrderMapper;
 
     @Resource
     private ExamItemMapper examItemMapper;
@@ -90,6 +90,23 @@ public class BodyExamServiceImpl implements BodyExamService {
             sum += examinationMapper.insertMappingInfo(examinationId, examItemId);
         }
         return saveInfoStatus != 0 && insertUEMappingInfoStatus != 0 && sum == examItemIds.length ? 1 : 0;
+    }
+
+    @Override
+    @Transactional
+    public int saveExaminationFromOrder(CNewExamOrderDto info) {
+        Examination examination = new Examination();
+        examination.setExamTime(info.getExamTime());
+        examination.setHasExamined(false);
+        examination.setDoctorName(info.getDoctorName());
+        examination.setUserId(info.getUserId());
+        examination.setResidentName(info.getResidentName());
+        int saveInfoStatus = examinationMapper.insertExamination(examination);
+        Integer examinationId = examination.getExaminationId();
+        examinationMapper.insertMappingInfo(examinationId, info.getExamId());
+        examinationMapper.insertUEMappingInfo(info.getUserId(), examinationId);
+        examOrderMapper.deleteById(info.getExamOrderId());
+        return saveInfoStatus;
     }
 
     private String getResidentNameByUserId(Integer userId) {
@@ -213,6 +230,45 @@ public class BodyExamServiceImpl implements BodyExamService {
         }
         return sum == examResults.size() ? 1 : 0;
     }
+
+    @Override
+    @Transactional
+    public int saveOrderList(CExamOrderDto dto) {
+        Integer[] examItemIds = dto.getExamItemIds();
+        int sum = 0;
+        for (Integer examItemId : examItemIds) {
+            sum += examOrderMapper.insert(this.generateExamOrderItem(
+                    examItemId,
+                    dto.getUsername(),
+                    dto.getExamTime(),
+                    dto.getResidentName()));
+        }
+        return sum == examItemIds.length ? 1 : 0 ;
+    }
+
+    @Override
+    public List<ExamOrder> getExamOrderList() {
+        return examOrderMapper.selectList(null);
+    }
+
+    @Override
+    public int deleteExamOrderById(int examOrderId) {
+        return examOrderMapper.deleteById(examOrderId);
+    }
+
+
+
+    private ExamOrder generateExamOrderItem(Integer examItemId, String username, String examTime, String residentName) {
+        ExamOrder examOrder = new ExamOrder();
+        String examName = examItemMapper.selectExamNameByExamId(examItemId);
+        examOrder.setExamId(examItemId);
+        examOrder.setExamName(examName);
+        examOrder.setUserId(userMapper.findUserByUsername(username).getId());
+        examOrder.setExamTime(TimeUtil.formatTime(examTime));
+        examOrder.setResidentName(residentName);
+        return examOrder;
+    }
+
 
     private CExamDetailDto generateExamResultDto(Integer itemId, Double itemValue) {
         CExamDetailDto cExamDetailDto = new CExamDetailDto();

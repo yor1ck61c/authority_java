@@ -1,15 +1,9 @@
 package io.oicp.yorick61c.controller;
 
 
-import io.oicp.yorick61c.domain.body_exam.ExamDataItem;
+import io.oicp.yorick61c.domain.body_exam.*;
 import io.oicp.yorick61c.domain.MsgBox;
-import io.oicp.yorick61c.domain.body_exam.ExamItem;
-import io.oicp.yorick61c.domain.body_exam.ExamResult;
-import io.oicp.yorick61c.domain.body_exam.Examination;
-import io.oicp.yorick61c.pojo.dto.body_exam_dto.CExamDataItemInfo;
-import io.oicp.yorick61c.pojo.dto.body_exam_dto.CExamDetailDto;
-import io.oicp.yorick61c.pojo.dto.body_exam_dto.CExamResultDto;
-import io.oicp.yorick61c.pojo.dto.body_exam_dto.CHandleExamDto;
+import io.oicp.yorick61c.pojo.dto.body_exam_dto.*;
 import io.oicp.yorick61c.service.BodyExamService;
 import io.oicp.yorick61c.utils.JsonUtil;
 import org.springframework.stereotype.Controller;
@@ -63,6 +57,13 @@ public class BodyExamController {
     @ResponseBody
     public String saveExamination(@RequestBody Examination info) {
         int insertStatus = bodyExamService.saveExamination(info);
+        return getSaveMsgString(insertStatus);
+    }
+
+    @PostMapping("/save_examination_from_order")
+    @ResponseBody
+    public String saveExaminationFromOrder(@RequestBody CNewExamOrderDto info) {
+        int insertStatus = bodyExamService.saveExaminationFromOrder(info);
         return getSaveMsgString(insertStatus);
     }
 
@@ -123,6 +124,27 @@ public class BodyExamController {
         return getSaveMsgString(res);
     }
 
+    @PostMapping("/save_order_list")
+    @ResponseBody
+    public String saveOrderList(@RequestBody CExamOrderDto dto) {
+        int res = bodyExamService.saveOrderList(dto);
+        return getSaveOrderMsgString(res);
+    }
+
+
+    @GetMapping("/delete_exam_order")
+    @ResponseBody
+    public String deleteExamOrder(int examOrderId) {
+        int res = bodyExamService.deleteExamOrderById(examOrderId);
+        return getDeleteMsgString(res);
+    }
+
+    @GetMapping("/get_exam_order_list")
+    @ResponseBody
+    public String getExamOrderList() {
+        List<ExamOrder> examOrderList = bodyExamService.getExamOrderList();
+        return JsonUtil.obj2String(examOrderList);
+    }
 
     private String getSaveMsgString(int insertStatus) {
         MsgBox msg = new MsgBox();
@@ -132,6 +154,18 @@ public class BodyExamController {
         } else {
             msg.setCode(1);
             msg.setMsg("保存成功");
+        }
+        return JsonUtil.obj2String(msg);
+    }
+
+    private String getSaveOrderMsgString(int insertStatus) {
+        MsgBox msg = new MsgBox();
+        if (insertStatus == 0) {
+            msg.setCode(0);
+            msg.setMsg("预约失败");
+        } else {
+            msg.setCode(1);
+            msg.setMsg("预约成功");
         }
         return JsonUtil.obj2String(msg);
     }
