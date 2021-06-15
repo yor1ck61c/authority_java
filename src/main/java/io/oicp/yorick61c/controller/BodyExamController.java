@@ -75,6 +75,20 @@ public class BodyExamController {
         return JsonUtil.obj2String(nameList);
     }
 
+    @GetMapping("/get_exam_data_items_info")
+    @ResponseBody
+    public String getExamDataItemsInfo() {
+        List<ExamDataItem> examDataItemList = bodyExamService.getAllExamDataItemsInfo();
+        return JsonUtil.obj2String(examDataItemList);
+    }
+
+    @GetMapping("/delete_exam_data_item_by_id")
+    @ResponseBody
+    public String deleteExamDataItemById(int itemId) {
+        int status = bodyExamService.deleteExamDataItemById(itemId);
+        return JsonUtil.obj2String(getDeleteMsgString(status));
+    }
+
     @GetMapping("/get_exam_item_names")
     @ResponseBody
     public String getExamItemNameList() {

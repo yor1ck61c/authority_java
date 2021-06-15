@@ -109,6 +109,16 @@ public class BodyExamServiceImpl implements BodyExamService {
         return saveInfoStatus;
     }
 
+    @Override
+    public List<ExamDataItem> getAllExamDataItemsInfo() {
+        return dataItemMapper.selectList(null);
+    }
+
+    @Override
+    public int deleteExamDataItemById(int itemId) {
+        return dataItemMapper.deleteById(itemId);
+    }
+
     private String getResidentNameByUserId(Integer userId) {
         CBasicFileTableDto cBasicFileTableDto = residentBasicFileMapper.selectById(userId);
         return cBasicFileTableDto.getResidentName();

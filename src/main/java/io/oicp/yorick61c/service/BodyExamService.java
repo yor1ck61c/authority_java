@@ -37,4 +37,8 @@ public interface BodyExamService {
     int deleteExamOrderById(int examOrderId);
 
     int saveExaminationFromOrder(CNewExamOrderDto info);
+
+    List<ExamDataItem> getAllExamDataItemsInfo();
+
+    int deleteExamDataItemById(int itemId);
 }
