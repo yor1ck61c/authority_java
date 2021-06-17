@@ -17,4 +17,6 @@ public interface ExaminationExamMappingMapper extends BaseMapper<ExaminationExam
     long[] selectExamIdByExaminationId(int examinationId);
 
     List<ExaminationExamMapping> selectExamIdAndStatusByExaminationId(int examinationId);
+
+    void deleteMappingByExamItemId(int examId);
 }

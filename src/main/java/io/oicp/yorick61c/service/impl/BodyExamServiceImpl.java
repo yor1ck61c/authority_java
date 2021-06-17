@@ -115,8 +115,57 @@ public class BodyExamServiceImpl implements BodyExamService {
     }
 
     @Override
+    @Transactional
     public int deleteExamDataItemById(int itemId) {
+        examItemExamDataItemMappingMapper.deleteMappingByItemId(itemId);
         return dataItemMapper.deleteById(itemId);
+    }
+
+    @Override
+    public int updateExamDataItemById(ExamDataItem item) {
+        return dataItemMapper.updateById(item);
+    }
+
+    @Override
+    @Transactional
+    public List<ExamItem> getAllExamItemsInfo() {
+        QueryWrapper<ExamItem> examItemQueryWrapper = new QueryWrapper<>();
+        examItemQueryWrapper.select("exam_id","exam_type", "exam_name", "exam_equipment", "description");
+        List<ExamItem> examItems = examItemMapper.selectList(examItemQueryWrapper);
+        for (ExamItem item: examItems) {
+            long[] ids = examItemExamDataItemMappingMapper.selectExamDataItemIdByExamId(item.getExamId());
+            item.setExamDataItemIds(convertLongArray2Int(ids));
+        }
+        return examItems;
+    }
+
+    private Integer[] convertLongArray2Int(long[] array) {
+        Integer[] res = new Integer[array.length];
+        for (int i = 0; i < array.length; i++) {
+            res[i] = (int) array[i];
+        }
+        return res;
+    }
+
+    @Override
+    @Transactional
+    public int deleteExamItemById(int examId) {
+        examinationExamMappingMapper.deleteMappingByExamItemId(examId);
+        return examItemMapper.deleteById(examId);
+    }
+
+    @Override
+    @Transactional
+    public int updateExamItemById(ExamItem item) {
+        examItemMapper.clearMappingByExamId(item.getExamId());
+        QueryWrapper<ExamItem> examItemQueryWrapper = new QueryWrapper<>();
+        examItemQueryWrapper.eq("exam_id", item.getExamId());
+        examItemQueryWrapper.select("exam_type", "exam_name", "exam_equipment", "description");
+        Integer[] examDataItemIds = item.getExamDataItemIds();
+        for (Integer examDataItemId : examDataItemIds) {
+            examItemMapper.insertMappingInfo(item.getExamId(), examDataItemId);
+        }
+        return examItemMapper.update(item, examItemQueryWrapper);
     }
 
     private String getResidentNameByUserId(Integer userId) {

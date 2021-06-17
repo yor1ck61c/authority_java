@@ -21,4 +21,8 @@
             (#{examinationId}, #{examId}, #{itemId}, #{itemValue})
     </insert>
 
+    <delete id="deleteMappingByItemId" parameterType="int">
+        delete from exam_item_data_item_mapping
+        where item_id = #{itemId}
+    </delete>
 </mapper>

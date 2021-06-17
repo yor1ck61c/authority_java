@@ -9,4 +9,6 @@ public interface ExamItemExamDataItemMappingMapper extends BaseMapper<ExamItemEx
     long[] selectExamDataItemIdByExamId(int examId);
 
     void saveExamValue(@Param("examinationId")Integer examinationId, @Param("examId") Integer examId, @Param("itemId") Integer itemId, @Param("itemValue") Double itemValue);
+
+    void deleteMappingByItemId(int itemId);
 }

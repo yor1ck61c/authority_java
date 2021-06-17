@@ -64,4 +64,8 @@
             exam_id = #{examId}
     </update>
 
+    <delete id="deleteMappingByExamItemId" parameterType="int">
+        delete from examination_exam_item_mapping
+        where exam_id = #{examId}
+    </delete>
 </mapper>

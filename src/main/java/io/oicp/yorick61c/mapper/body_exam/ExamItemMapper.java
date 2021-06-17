@@ -10,4 +10,6 @@ public interface ExamItemMapper extends BaseMapper<ExamItem> {
     int insertMappingInfo(int examId, int itemId);
 
     String selectExamNameByExamId(int examId);
+
+    void clearMappingByExamId(Integer examId);
 }

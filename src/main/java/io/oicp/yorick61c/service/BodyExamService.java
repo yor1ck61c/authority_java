@@ -41,4 +41,12 @@ public interface BodyExamService {
     List<ExamDataItem> getAllExamDataItemsInfo();
 
     int deleteExamDataItemById(int itemId);
+
+    int updateExamDataItemById(ExamDataItem item);
+
+    List<ExamItem> getAllExamItemsInfo();
+
+    int deleteExamItemById(int examId);
+
+    int updateExamItemById(ExamItem item);
 }

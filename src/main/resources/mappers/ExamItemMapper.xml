@@ -20,6 +20,12 @@
             (#{examId}, #{itemId})
     </insert>
 
+    <delete id="clearMappingByExamId" parameterType="int">
+        delete from exam_item_data_item_mapping
+        where
+            exam_id = #{examId}
+    </delete>
+
     <select id="selectExamNameByExamId" parameterType="int" resultType="string">
         select exam_name
         from exam_item

@@ -51,6 +51,19 @@ public class BodyExamController {
         return getSaveMsgString(res);
     }
 
+    @PutMapping("/exam_data_item")
+    @ResponseBody
+    public String updateExamDataItemById(@RequestBody ExamDataItem item) {
+        int res = bodyExamService.updateExamDataItemById(item);
+        return getUpdateMsgString(res);
+    }
+
+    @PutMapping("/exam_item")
+    @ResponseBody
+    public String updateExamItemById(@RequestBody ExamItem item) {
+        int res = bodyExamService.updateExamItemById(item);
+        return getUpdateMsgString(res);
+    }
 
 
     @PostMapping("/save_examination")
@@ -82,10 +95,24 @@ public class BodyExamController {
         return JsonUtil.obj2String(examDataItemList);
     }
 
+    @GetMapping("/get_exam_items_info")
+    @ResponseBody
+    public String getExamItemsInfo() {
+        List<ExamItem> examItemList = bodyExamService.getAllExamItemsInfo();
+        return JsonUtil.obj2String(examItemList);
+    }
+
     @GetMapping("/delete_exam_data_item_by_id")
     @ResponseBody
     public String deleteExamDataItemById(int itemId) {
         int status = bodyExamService.deleteExamDataItemById(itemId);
+        return JsonUtil.obj2String(getDeleteMsgString(status));
+    }
+
+    @GetMapping("/delete_exam_item_by_id")
+    @ResponseBody
+    public String deleteExamItemById(int examId) {
+        int status = bodyExamService.deleteExamItemById(examId);
         return JsonUtil.obj2String(getDeleteMsgString(status));
     }
 
@@ -168,6 +195,18 @@ public class BodyExamController {
         } else {
             msg.setCode(1);
             msg.setMsg("保存成功");
+        }
+        return JsonUtil.obj2String(msg);
+    }
+
+    private String getUpdateMsgString(int insertStatus) {
+        MsgBox msg = new MsgBox();
+        if (insertStatus == 0) {
+            msg.setCode(0);
+            msg.setMsg("更改失败");
+        } else {
+            msg.setCode(1);
+            msg.setMsg("更改成功");
         }
         return JsonUtil.obj2String(msg);
     }
