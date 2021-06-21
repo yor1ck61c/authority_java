@@ -1,11 +1,13 @@
 package io.oicp.yorick61c.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.oicp.yorick61c.domain.MsgBox;
 import io.oicp.yorick61c.domain.login.User;
 import io.oicp.yorick61c.mapper.ResidentBasicFileMapper;
 import io.oicp.yorick61c.mapper.UserMapper;
 import io.oicp.yorick61c.pojo.dto.build_file_dto.CBasicFileTableDto;
 import io.oicp.yorick61c.service.UserService;
+import io.oicp.yorick61c.utils.JsonUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -40,6 +42,14 @@ public class UserServiceImpl implements UserService {
     public String getResidentNameByUsername(String username) {
         User user = userMapper.findUserByUsername(username);
         CBasicFileTableDto cBasicFileTableDto = residentBasicFileMapper.selectById(user.getId());
-        return cBasicFileTableDto.getResidentName();
+        MsgBox msgBox = new MsgBox();
+        try {
+            msgBox.setCode(200);
+            msgBox.setMsg(cBasicFileTableDto.getResidentName());
+            return JsonUtil.obj2String(msgBox);
+        } catch (NullPointerException e) {
+            msgBox.setCode(501);
+            return JsonUtil.obj2String(msgBox);
+        }
     }
 }
