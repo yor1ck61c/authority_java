@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @TableName("resident_info")
-public class CResidentBuildFileDto {
+public class CResidentBuildFileInfoDto {
 
     @TableId
     private Integer userId;
@@ -35,5 +35,6 @@ public class CResidentBuildFileDto {
     private String payment; //支付方式
     private String buildFileResident; //建档人
     private String buildFileTime; //建档时间
+
 
 }
