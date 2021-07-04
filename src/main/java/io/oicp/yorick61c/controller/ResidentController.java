@@ -5,6 +5,7 @@ import io.oicp.yorick61c.domain.build_file.ResidentInfo;
 import io.oicp.yorick61c.pojo.dto.build_file_dto.CResidentBuildFileInfoDto;
 import io.oicp.yorick61c.service.ResidentService;
 import io.oicp.yorick61c.utils.JsonUtil;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,14 +22,32 @@ public class ResidentController {
     @PostMapping("/save_info")
     @ResponseBody
     public String saveResidentInfo(@RequestBody ResidentInfo residentInfo) {
-        int res = residentService.insertResidentInfo(residentInfo);
+        int res;
+        try {
+            res = residentService.insertResidentInfo(residentInfo);
+        } catch (DataAccessException e) {
+            MsgBox msgBox = new MsgBox();
+            msgBox.setCode(502);
+            msgBox.setMsg("您已建档，请不要重复建档");
+            return JsonUtil.obj2String(msgBox);
+        }
         return this.getBuildFileMsgString(res);
+
     }
 
     @PostMapping("/save_info_from_excel")
     @ResponseBody
+    @ExceptionHandler(DataAccessException.class)
     public String saveResidentInfoFromExcel(@RequestBody List<ResidentInfo> residentInfo) {
-        int res = residentService.insertResidentInfoFromExcel(residentInfo);
+        int res;
+        try {
+            res = residentService.insertResidentInfoFromExcel(residentInfo);
+        } catch (DataAccessException e) {
+            MsgBox msgBox = new MsgBox();
+            msgBox.setCode(502);
+            msgBox.setMsg("您已建档，请不要重复建档");
+            return JsonUtil.obj2String(msgBox);
+        }
         return this.getBuildFileMsgString(res);
     }
 

@@ -7,10 +7,13 @@ import io.oicp.yorick61c.service.PrivilegeService;
 import io.oicp.yorick61c.service.UserService;
 import io.oicp.yorick61c.utils.JsonUtil;
 import io.oicp.yorick61c.utils.JwtUtil;
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 @RestController
 /*
@@ -81,12 +84,20 @@ public class UserController {
 
     @PostMapping("/register")
     @ResponseBody
+    @ExceptionHandler(value = DataAccessException.class)
     public String register(@RequestBody User user) {
         user.setRole("user");
         user.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
         user.setIntroduction("这个人很懒，什么也没有留下。");
-        int saveStatus = privilegeService.save(user);
+        int saveStatus;
         MsgBox msgBox = new MsgBox();
+        try {
+            saveStatus = privilegeService.save(user);
+        } catch (DataAccessException e) {
+            msgBox.setCode(502);
+            msgBox.setMsg("用户名重复");
+            return JsonUtil.obj2String(msgBox);
+        }
         if (saveStatus == 1) {
             msgBox.setCode(1);
             msgBox.setMsg("注册成功！");

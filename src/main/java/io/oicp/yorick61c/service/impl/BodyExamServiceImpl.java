@@ -1,6 +1,7 @@
 package io.oicp.yorick61c.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import io.oicp.yorick61c.domain.body_exam.*;
 import io.oicp.yorick61c.domain.login.User;
 import io.oicp.yorick61c.mapper.ResidentBasicFileMapper;
@@ -158,14 +159,20 @@ public class BodyExamServiceImpl implements BodyExamService {
     @Transactional
     public int updateExamItemById(ExamItem item) {
         examItemMapper.clearMappingByExamId(item.getExamId());
-        QueryWrapper<ExamItem> examItemQueryWrapper = new QueryWrapper<>();
+        UpdateWrapper<ExamItem> examItemUpdateWrapper = new UpdateWrapper<>();
+        examItemUpdateWrapper.eq("exam_id", item.getExamId());
+        examItemUpdateWrapper.set("exam_type", item.getExamType());
+        examItemUpdateWrapper.set("exam_name", item.getExamName());
+        examItemUpdateWrapper.set("exam_equipment", item.getExamEquipment());
+        examItemUpdateWrapper.set("description", item.getDescription());
+        /*QueryWrapper<ExamItem> examItemQueryWrapper = new QueryWrapper<>();
         examItemQueryWrapper.eq("exam_id", item.getExamId());
-        examItemQueryWrapper.select("exam_type", "exam_name", "exam_equipment", "description");
+        examItemQueryWrapper.select("exam_type", "exam_name", "exam_equipment", "description");*/
         Integer[] examDataItemIds = item.getExamDataItemIds();
         for (Integer examDataItemId : examDataItemIds) {
             examItemMapper.insertMappingInfo(item.getExamId(), examDataItemId);
         }
-        return examItemMapper.update(item, examItemQueryWrapper);
+        return examItemMapper.update(null, examItemUpdateWrapper);
     }
 
     private String getResidentNameByUserId(Integer userId) {
